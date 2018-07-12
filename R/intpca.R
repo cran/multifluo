@@ -7,12 +7,12 @@ function(vars,ind,map="b",si=NULL,ic=NULL,sic=NULL,ell=NULL,seg=NULL,epd=NULL,x=
 	indLabels=TRUE
 	varsLabels=TRUE
 	if(!map%in%c("bil","bip","b","til","t","tip")){map="b";warning("Wrong map name. Please choose between 'b','bil','bip','t','til',tip'.")}
-	if(map=="bil"){		si=TRUE;siLabels=TRUE;biplot=TRUE}
-	if(map=="bip"){		si=TRUE;siLabels=FALSE;biplot=TRUE}
-	if(map=="b"){		si=FALSE;siLabels=FALSE;biplot=TRUE}
-	if(map=="til"){		si=TRUE;siLabels=TRUE;biplot=FALSE}
-	if(map=="tip"){		si=TRUE;siLabels=FALSE;biplot=FALSE}
-	if(map=="t"){		si=FALSE;siLabels=FALSE;biplot=FALSE}	
+	if(map=="bil"){		supInd=TRUE;siLabels=TRUE;biplot=TRUE}
+	if(map=="bip"){		supInd=TRUE;siLabels=FALSE;biplot=TRUE}
+	if(map=="b"){		supInd=FALSE;siLabels=FALSE;biplot=TRUE}
+	if(map=="til"){		supInd=TRUE;siLabels=TRUE;biplot=FALSE}
+	if(map=="tip"){		supInd=TRUE;siLabels=FALSE;biplot=FALSE}
+	if(map=="t"){		supInd=FALSE;siLabels=FALSE;biplot=FALSE}	
 	
 	#if(returnX){ind[,1]=-ind[,1];vars[,1]=-vars[,1];if(!is.null(ell)){ell[,,1]=-ell[,,1]}}
 	#if(returnY){ind[,2]=-ind[,2];vars[,2]=-vars[,2];if(!is.null(ell)){ell[,,2]=-ell[,,2]}} mainTitle
@@ -62,7 +62,7 @@ function(vars,ind,map="b",si=NULL,ic=NULL,sic=NULL,ell=NULL,seg=NULL,epd=NULL,x=
 		yMaxInd=max(yMaxInd,max(ell[,,2]))
 	}
 		
-	if (si)
+	if (supInd)
 	{
 		xMinInd=min(si[[1]][,1])
 		xMaxInd=max(si[[1]][,1])
@@ -139,7 +139,7 @@ function(vars,ind,map="b",si=NULL,ic=NULL,sic=NULL,ell=NULL,seg=NULL,epd=NULL,x=
 	
 		
 	# scoreName supplementaires
-	if(si)
+	if(supInd)
 	{
 		for(i in 1:nb.ind)
 		{

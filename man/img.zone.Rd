@@ -47,6 +47,6 @@ Zone object (with control points) is given as a matrix /image
 data(zones)
 data(count)
 zone.imgRect=img.zone(zone=zones,d=dim(count))
-\donttest{plotimage(mat.image=zone.img,is.zone=T)}
+\donttest{plotimage(mat=zone.imgRect,z=T)}
 
 }

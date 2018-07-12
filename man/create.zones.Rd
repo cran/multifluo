@@ -45,7 +45,7 @@ data(zone.mat)
 zones=create.zones(pts=zone.mat,shape="para",interact=FALSE)
 data(count)
 \donttest{
-img=plotimage(count,main="Counts",min.scale=1000,max.scale=4000,mask=count>1000)
+img=plotimage(count,lim=c(1000,4000),m=count>1000)
 zonesRect=create.zones(img,shape="rect",n.zones=3)
 zonesPara=create.zones(img,shape="para",n.zones=3)
 zonesCircle=create.zones(img,shape="circle",n.zones=3)

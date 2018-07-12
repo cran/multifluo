@@ -2,7 +2,7 @@
 \alias{plotimage}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Ploting an image
+Plotting an image
 }
 \description{
 Plots an image with its colorscale.
@@ -36,7 +36,8 @@ when TRUE, the graph is drawn over the existing graph. If FALSE, a new graph is 
 }
 
 \item{lc}{c(0,0.7) by default. Parameter corresponding to the start color and the end color in the rainbow scale,a number in [0,1] (start in rainbow function)}
-\item{p}{Further parameters to plot. if "n", nothing more is plotted, if "a", axes are plotted, if "l", color legend is plotted, if "al" axes and color legend are plotted}
+\item{p}{Further parameters to plot. if "n", nothing more is plotted, if "a", axes are plotted, if "l", color legend is plotted, if "al" axes and color legend are plotted. If "d" is added to this parameter (giving "ad","ld","ald" or "nd", no smoothing of the pixel is computed (discrete)
+}
 }
 
 \value{
@@ -52,12 +53,14 @@ count.img=plotimage(mat=count,lim=c(0,5000))
 
 # with m
 count.img=plotimage(mat=count,lim=c(1000,4000),m=count>1000)
-\donttest{plotimage(mat=lifetime,main="",min.scale=2.8,max.scale=3.5)
-gp.img=plotimage(mat=gp,main="",min.scale=-0.2,max.scale=0.8)}
+\donttest{plotimage(mat=lifetime,lim=c(2.8,3.5))
+gp.img=plotimage(mat=gp,lim=c(-0.2,0.8))}
 
 #add
+\donttest{
+resT=plotimage(mat=lifetime,lim=c(2.8,3.5),m=count>1000)
+resGP=plotimage(mat=gp,lim=c(2.8,3.5),add=TRUE)
+}
 
-#resT=plotimage(mat=lifetime,lim=c(2.8,3.5),m=count>1000)
-#resGP=plotimage(mat=gp,lim=c(2.8,3.5),add=TRUE)
 
 }

@@ -2,13 +2,17 @@ plotimage <-
 function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7),p="l")
 { # mat : matrice a tracer
 	
-	if(!p%in%c("l","a","al","n")){p="n"}
-	if(p=="l"){	axes=FALSE;leg=TRUE}
-	if(p=="a"){	axes=TRUE;leg=TRUE}
-	if(p=="al"){	axes=TRUE;leg=TRUE}
-	if(p=="n"){	axes=FALSE;leg=FALSE}
+	if(!p%in%c("l","a","al","n","ld","ad","ald","nd")){p="n"}
+	if(p=="l"){	axes=FALSE;leg=TRUE;	continuous=TRUE}
+	if(p=="a"){	axes=TRUE;leg=FALSE;	continuous=TRUE}
+	if(p=="al"){	axes=TRUE;leg=TRUE;	continuous=TRUE}
+	if(p=="n"){	axes=FALSE;leg=FALSE	;continuous=TRUE}
+	if(p=="ld"){	axes=FALSE;leg=TRUE;	continuous=FALSE}
+	if(p=="ad"){	axes=TRUE;leg=FALSE;	continuous=FALSE}
+	if(p=="ald"){	axes=TRUE;leg=TRUE;	continuous=FALSE}
+	if(p=="nd"){	axes=FALSE;leg=FALSE	;continuous=FALSE}
 	alpha.col=1
-	continuous=TRUE
+	#continuous=TRUE
 	main=NULL
 	imageToPlot=NULL
 	nbPixX=dim(mat)[1]
@@ -57,19 +61,22 @@ function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7
 			{
 				matrice <- matrix(c(1,2,2,2,2,2),nrow=1,ncol=6,byrow=TRUE)
 				layout(matrice)
-				par(mar=c(0,0,0,0))
+				par(mar=c(4, 0, 5, 0))
 				par(xaxt="n")
 				par(yaxt="n")
 				par(bty="n")
 			
-			plot(rep(1,nc),1:nc,col=vecteurCouleur)
-			if(abs(nc*pas)<10){digits=1}else{digits=0}
+			plot(rep(1,nc),1:nc,col=vecteurCouleur,xlab="",ylab="",cex=4,pch=15)
+			
+			if(abs(nc*pas)<10){digits=1}else{if(abs(nc*pas)<1){digits=3}else{digits=0}}
 			for(k in 0:(nc/100))
 			{		
 				text(0.7,k*100,round(min.scale+100*k*pas,digits=digits))
 			}
-
-			par(mar=c(3,2,0,2))
+			
+			
+			
+			#par(mar=c(3,2,0,2))
 			
 			par(xaxt="s")
 			par(yaxt="s")
@@ -77,10 +84,10 @@ function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7
 		
 			
 			
-			if(!continuous & !add)
-			{
-				plot(NULL,xlim=c(0,nbPixX),ylim=c(0,nbPixY),xlab="",ylab="",main=main)
-			}
+			# if(!continuous)
+			# {
+				# plot(NULL,xlim=c(0,nbPixX),ylim=c(0,nbPixY),xlab="",ylab="",main=main)
+			# }
 			
 		}
 		matR=matB=matG=matrix(0,nbPixX,nbPixY)
@@ -98,16 +105,16 @@ function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7
 					if(tim<max.scale&tim>min.scale){indicecol=round((tim-min.scale)/pas)}
 					if(indicecol>nc){indicecol=nc}
 					if(indicecol<1){indicecol=1}
-					if(continuous&!add)
-					{
+					 if(!add)
+					 {
 						matR[i,j]=col2rgb(vecteurCouleur[indicecol])["red",]
 						matG[i,j]=col2rgb(vecteurCouleur[indicecol])["green",]
 						matB[i,j]=col2rgb(vecteurCouleur[indicecol])["blue",]
-					}
-					else
-					{
+					 }
+					 else
+					 {
 						points(i,j,col=vecteurCouleur[indicecol],pch=20,cex=0.5)
-					}
+					 }
 					
 					
 				}
@@ -116,12 +123,13 @@ function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7
 		}
 	
 		imageToPlot=as.cimg(c(as.vector(unlist(matR)),as.vector(unlist(matG)),as.vector(unlist(matB))),x=nbPixX,y=nbPixY,cc=3)
-		if(!add&continuous)
-		{
+		if(!add)
+		 {
 			par(xaxt="s")
 			par(yaxt="s")
-			par(mar=c(2,2,3,2))
-			plot(imageToPlot,axes=axes,new=add,main=main)
+
+			par(mar=c(2,0,3,2))
+			plot(imageToPlot,axes=axes,new=add,main=main,interpolate=continuous)
 		}	
 	
 	}
@@ -147,21 +155,21 @@ function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7
 						if(tim==zones[k])
 						{
 							
-							if(continuous&!add)
-							{
+							 if(!add)
+							 {
 								matR[i,j]=as.data.frame(col2rgb(couleurs[k]))["red",]
 								matG[i,j]=as.data.frame(col2rgb(couleurs[k]))["green",]
 								matB[i,j]=as.data.frame(col2rgb(couleurs[k]))["blue",]
 								imageToPlot=as.cimg(c(as.vector(unlist(matR)),as.vector(unlist(matG)),as.vector(unlist(matB))),x=nbPixX,y=nbPixY,cc=3)
-							}	
-							else
-							{
-								if(!add){plot(NULL,xlim=c(0,nbPixX),ylim=c(0,nbPixY),xlab="",ylab="",main=main)}
-								points(mat[i],mat[j],col=couleurs[k],cex=0.6)
-								matR[i,j]=as.data.frame(col2rgb(couleurs[k]))["red",]
-								matG[i,j]=as.data.frame(col2rgb(couleurs[k]))["green",]
-								matB[i,j]=as.data.frame(col2rgb(couleurs[k]))["blue",]
-								imageToPlot=as.cimg(c(as.vector(unlist(matR)),as.vector(unlist(matG)),as.vector(unlist(matB))),x=nbPixX,y=nbPixY,cc=3)	
+							 }	
+							 else
+							 {
+								# if(!add){plot(NULL,xlim=c(0,nbPixX),ylim=c(0,nbPixY),xlab="",ylab="",main=main)}
+								 points(mat[i],mat[j],col=couleurs[k],cex=0.6)
+								 matR[i,j]=as.data.frame(col2rgb(couleurs[k]))["red",]
+								 matG[i,j]=as.data.frame(col2rgb(couleurs[k]))["green",]
+								 matB[i,j]=as.data.frame(col2rgb(couleurs[k]))["blue",]
+								 imageToPlot=as.cimg(c(as.vector(unlist(matR)),as.vector(unlist(matG)),as.vector(unlist(matB))),x=nbPixX,y=nbPixY,cc=3)	
 							}
 						}
 					}	
@@ -169,10 +177,11 @@ function(mat,lim=NULL,nc=1000,m=NULL,z=FALSE,add=FALSE,cols="rainbow",lc=c(0,0.7
 			}
 		}
 		
-		if(continuous&&!add)
+		if(!add)
 		{
 			par(mar=c(1,1,3,1))
-			plot(imageToPlot,axes=axes)
+			#par(mar=c(0,0,0,0))
+			plot(imageToPlot,axes=axes,interpolate=continuous)
 			#axis(1)
 			#axis(2)
 		}		

@@ -1,5 +1,5 @@
 plotpca <-
-function(x,map="b",n="a", l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="h",dax="all")
+function(x,map="b",n="a", l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="n",dax="all")
 { #gerer isup ou si
 	fileName = "PCA"
 	main="PCA"
@@ -16,7 +16,7 @@ function(x,map="b",n="a", l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="h",d
 	if(map=="bip"){		si=TRUE;sindLabels=FALSE;biplot=TRUE}
 	if(map=="b"){		si=FALSE;sindLabels=FALSE;biplot=TRUE}
 	if(map=="til"){		si=TRUE;sindLabels=TRUE;biplot=FALSE}
-	if(map=="ti"){		si=TRUE;sindLabels=FALSE;biplot=FALSE}
+	if(map=="tip"){		si=TRUE;sindLabels=FALSE;biplot=FALSE}
 	if(map=="t"){		si=FALSE;sindLabels=FALSE;biplot=FALSE}	
 
 	if(!et %in% c("bar","ind")){et="n"}
@@ -100,7 +100,7 @@ function(x,map="b",n="a", l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="h",d
 		res.PlotPCA[["cumulInertia"]]=	inertieCumul
 		# Individus supp
 		suppIndividuals = NULL
-		if (et!="n" | si==FALSE)
+		if (et!="n" | si==TRUE)
 		{			
 			suppIndividuals=x$IndSup
 		} 
@@ -115,8 +115,8 @@ function(x,map="b",n="a", l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="h",d
 		# Ellipses
 		individualsEllipses=NULL
 		panelistCoord=NULL
-		if (et!="n" | si==FALSE)
-		{
+		if (et!="n" | si==TRUE)
+		{#sup.ind
 			calculationsEllipse=calc.ell(sup.ind=suppIndividuals,vep=x$EigenVectors,axes=c(axe1,axe2), conf=confInt,ell.t=et,calc=calc)
 			panelistCoord=calculationsEllipse[[1]]
 			individualsEllipses= calculationsEllipse[[2]] 
@@ -143,7 +143,7 @@ function(x,map="b",n="a", l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="h",d
 			# }
 			
 		# }
-
+		if(et=="n"){individualsEllipses=NULL}
 		main=paste(main," (",inertieCumul,"%)",sep="")	
 		xlab=paste("Dim. ",axe1," (",round(inertie1*100/sum(x$EigenValues),digits=2),"%)",sep="")
 		ylab=paste("Dim. ",axe2," (",round(inertie2*100/sum(x$EigenValues),digits=2),"%)",sep="")

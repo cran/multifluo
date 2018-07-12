@@ -9,7 +9,7 @@ Sometimes, a slight shift exists between two images of the same sample. This fun
 The shift can be determined with a vector by entering its coordinates; or interactively by clicking on a specific point on a first image, and its corresponding point on the second image)
 }
 \usage{
-translation(dtt,dtc=NULL,x,y,interact=FALSE,dtt.lim=NULL,dtc.lim=NULL,return.vect=FALSE)
+translation(dtt,dtc=NULL,x,y,interact="none",dtt.lim=NULL,dtc.lim=NULL,n.around=c(5,5))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,14 +36,12 @@ limits of the scale of dtt (to change when the image is not contrasted enough to
   \item{dtc.lim}{
 limits of the scale of dtc (to change when the image is not contrasted enough to detect specific points)
 }
-  \item{return.vect}{
-if TRUE, the function returns a list composed of the translated data ("data") and the vector of translation ("translation")}
-
+  \item{n.around}{
+Tests every translation in a neighborhood of n.around[1] in x and n.around[2] of y (clicked by the user), and select the translation that maximizes the number of not TRUE common to dtc and dtt.
+It requires that both dtc and dtt are boolean matrices.}
 }
-
 \value{
-If return.vect=FALSE (default), the function returns the translated data.
-If return.vect=TRUE, the function returns a list containing the translated data ("data") and the vector of translation ("translation")
+The function returns a list containing the translated data ("data") and the vector of translation ("translation")
 }
 
 
@@ -53,5 +51,5 @@ If return.vect=TRUE, the function returns a list containing the translated data 
 data(gp)
 data(count)
 \donttest{GP37Anew=translation(dtt=gp,dtc=count,interact=TRUE,dtt.lim=c(-0.4,0.8),dtc.lim=c(1000,4000))}
-GP37Anew=translation(gp,x=7,y=-3)
+GP37Anew=translation(gp,x=7,y=-3)$data
 }

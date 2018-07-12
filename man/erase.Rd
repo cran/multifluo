@@ -37,10 +37,10 @@ returned a zone image without the selected zone
 \examples{
 \donttest{
 data(zone.img)
-plotimage(zone.img,is.zone=TRUE)
+plotimage(zone.img,z=TRUE)
 data(img)
 zone.img2=erase(zone.img,img,interact=TRUE,shape="rect")
-plotimage(zone.img2,is.zone=TRUE)
+plotimage(zone.img2,z=TRUE)
 }
 
 }

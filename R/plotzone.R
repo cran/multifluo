@@ -4,7 +4,29 @@ function(zone,name=FALSE, dim.img=NULL,d=200,cex=1,col="black",main="Zone",lwd=1
 	#trace un parallelogramme
 	# zone a 6 colonnes (une pour chaque point)
 	main="Zone"
-	if(dev.cur()==1){plot(NULL,xlim=c(0,dim.img[1]),ylim=c(0,dim.img[2]),main=main)}
+	if(dev.cur()==1)
+	{
+		if(!is.null(dim.img))
+		{
+			plot(NULL,xlim=c(0,dim.img[1]),ylim=c(0,dim.img[2]),main=main)
+		}
+		else
+		{
+			xlim1=min(zone[[1]]$pts["x",])
+			xlim2=max(zone[[1]]$pts["x",])
+			ylim1=min(zone[[1]]$pts["y",])
+			ylim2=max(zone[[1]]$pts["y",])
+			for(i in 1:length(zone))
+			{
+				xlim1=min(min((zone[[i]]$pts["x",])),xlim1)
+				xlim2=max(max((zone[[i]]$pts["x",])),xlim2)
+				ylim1=min(min((zone[[i]]$pts["y",])),ylim1)
+				ylim2=max(max((zone[[i]]$pts["y",])),ylim2)
+			}
+			plot(NULL,xlim=c(xlim1,xlim2),ylim=c(ylim1,ylim2),main=main)
+		}
+		
+	}
 	nbRect=length(zone)	
 	for(i in 1:nbRect)
 	{

@@ -22,7 +22,7 @@ list of images to be compared
 potential list of boolean matrices reflecting conditions of the analysis. Each pixel which does not respect at least one of the boolean conditions will be removed from the resulting dataset.
 }
   \item{reduction}{
-if TRUE, each column of the related datafraime (corresponding to each  numeric image matrix) is centered and reduced
+if TRUE, each column of the related datafraime (corresponding to each  numeric image matrix) is centered and reduced,else, it is only centered
 }
   \item{return.bool}{
 if TRUE, a list containing the resulting data (data) and the boolean matrix of the treated pixels (boolean) is returned
@@ -36,7 +36,7 @@ vector containing the names of the successive images of list.img which are going
 The resulting data contains one column containing the zone, and then as many columns as components in list.img. The names of columns can correspond to the name.img vector (default), or to the names of the matrices in list.mat, else it will be Var1, Var2,...
 }
 
-\seealso{\link{img.zone},\link{pca},\link{create.zones}
+\seealso{\link{img.zone},\link{pca},\link{create.zones},\link{summaryrshp}
 }
 \examples{
 data(count)

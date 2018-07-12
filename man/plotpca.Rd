@@ -8,7 +8,7 @@ Plotting a Principal Component Analysis
 Plots the Principal Component Analysis from the pca function, and custumizes the output with 
 }
 \usage{
-plotpca(x,map="b",n="a",l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="h",dax="all")
+plotpca(x,map="b",n="a",l=0.05,col=NULL,calc="Chi",epd=NULL,et="bar",dif="n",dax="all")
 }
 \arguments{
   \item{x}{

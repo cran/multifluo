@@ -1,4 +1,4 @@
-export(find.colors,img.zone,create.zones, pca, plotimage, plotpca, plotzone, reshapimg, translation, difftable,hotelling.test,sri.test,calc.ell,generic.plot,intpca,interieur.para)
+export(find.colors,img.zone,create.zones, pca, plotimage, plotpca, plotzone, reshapimg, translation, difftable,hotelling.test,sri.test,calc.ell,generic.plot,intpca,interieur.para,summaryrshp,pcapic,binning)
 importFrom("grDevices", "cm.colors", "col2rgb", "dev.cur", "dev.off",
              "gray.colors", "heat.colors", "jpeg", "pdf", "png",
              "rainbow", "terrain.colors", "topo.colors",
@@ -7,7 +7,9 @@ importFrom("grDevices", "cm.colors", "col2rgb", "dev.cur", "dev.off",
              "mtext", "par", "plot", "points", "segments", "text")
   importFrom("stats", "aggregate", "cor", "cov", "pf", "pnorm", "qchisq",
              "qf")
+  importFrom("stats", "anova", "lm", "sd")
   importFrom("utils", "combn")
   import("imager")
+   import("agricolae")
   import("ellipse")
 importFrom("grDevices", "dev.new")
